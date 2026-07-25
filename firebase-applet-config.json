@@ -1,0 +1,11 @@
+{
+  "projectId": "silken-helix-cgtt6",
+  "appId": "1:108616092991:web:42c250d8d52cb9c78ed78a",
+  "apiKey": "YOUR_FIREBASE_API_KEY_HERE_OR_IN_ENV",
+  "authDomain": "silken-helix-cgtt6.firebaseapp.com",
+  "storageBucket": "silken-helix-cgtt6.firebasestorage.app",
+  "messagingSenderId": "108616092991",
+  "measurementId": "",
+  "oAuthClientId": "108616092991-pioo54g0t91ts1bf2ivv45hpmhr6s0hj.apps.googleusercontent.com",
+  "recaptchaSiteKey": ""
+}
