@@ -22,4 +22,31 @@ describe('Search Jobs Endpoint', () => {
     // Restore fetch spy
     fetchSpy.mockRestore();
   });
+
+  it('should return a 400 error if query is not a string', async () => {
+    const response = await request(app)
+      .post('/api/search-jobs')
+      .send({ query: { nested: 'object' } });
+
+    expect(response.status).toBe(400);
+    expect(response.body).toHaveProperty('error', 'Invalid query. Query must be a non-empty string.');
+  });
+
+  it('should return a 400 error if query is empty', async () => {
+    const response = await request(app)
+      .post('/api/search-jobs')
+      .send({ query: '' });
+
+    expect(response.status).toBe(400);
+    expect(response.body).toHaveProperty('error', 'Invalid query. Query must be a non-empty string.');
+  });
+
+  it('should return a 400 error if query is too long', async () => {
+    const response = await request(app)
+      .post('/api/search-jobs')
+      .send({ query: 'a'.repeat(101) });
+
+    expect(response.status).toBe(400);
+    expect(response.body).toHaveProperty('error', 'Query is too long. Maximum length is 100 characters.');
+  });
 });

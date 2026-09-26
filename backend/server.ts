@@ -347,6 +347,17 @@ Keep it professional, concise, and focused on making the user stand out for this
   app.post("/api/search-jobs", async (req, res) => {
     try {
       const { query } = req.body;
+
+      if (!query || typeof query !== 'string') {
+        return res.status(400).json({ error: "Invalid query. Query must be a non-empty string." });
+      }
+
+      const sanitizedQuery = query.trim();
+
+      if (sanitizedQuery.length > 100) {
+        return res.status(400).json({ error: "Query is too long. Maximum length is 100 characters." });
+      }
+
       const serperKey = process.env.SERPER_API_KEY;
       
       if (serperKey) {
@@ -357,7 +368,7 @@ Keep it professional, concise, and focused on making the user stand out for this
             "X-API-KEY": serperKey,
             "Content-Type": "application/json"
           },
-          body: JSON.stringify({ q: `${query} jobs entry level fresher India`, num: 20 })
+          body: JSON.stringify({ q: `${sanitizedQuery} jobs entry level fresher India`, num: 20 })
         });
         const data = await searchRes.json();
         const jobs = data.organic?.slice(0, 20).map((item: any) => ({
