@@ -10,17 +10,20 @@ if (process.env.DATABASE_URL) {
   console.log("Using DATABASE_URL for connection.");
   let url = process.env.DATABASE_URL;
   // Fix URL if it contains # in password
-  if (url.includes('#') && url.includes('@')) {
+  const protoMatch = url.match(/^([a-z0-9+.-]+):\/\//i);
+  if (protoMatch && url.includes('#') && url.includes('@')) {
+    const protoEnd = protoMatch[0].length;
     const atIndex = url.lastIndexOf('@');
-    const prefix = url.substring(0, atIndex);
-    const suffix = url.substring(atIndex);
-    const firstColonAfterProto = prefix.indexOf(':', 13); // after postgresql://
-    if (firstColonAfterProto > -1) {
-       const user = prefix.substring(13, firstColonAfterProto);
-       let pass = prefix.substring(firstColonAfterProto + 1);
-       // replace # with %23
-       pass = pass.replace(/#/g, '%23');
-       url = `postgresql://${user}:${pass}${suffix}`;
+    if (atIndex > protoEnd) {
+      const credentials = url.substring(protoEnd, atIndex);
+      const colonIndex = credentials.indexOf(':');
+      if (colonIndex > -1) {
+        const user = credentials.substring(0, colonIndex);
+        let pass = credentials.substring(colonIndex + 1);
+        // replace # with %23
+        pass = pass.replace(/#/g, '%23');
+        url = `${url.substring(0, protoEnd)}${user}:${pass}${url.substring(atIndex)}`;
+      }
     }
   }
   dbCredentials = {
