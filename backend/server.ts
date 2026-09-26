@@ -232,8 +232,17 @@ async function startServer() {
   });
 
   // Admin Data Endpoint
-  app.get("/api/admin/data", optionalAuth, async (req: AuthRequest, res) => {
+  app.get("/api/admin/data", requireAuth, async (req: AuthRequest, res) => {
     try {
+      // Security: Ensure only the configured admin can access sensitive data
+      const adminEmail = process.env.ADMIN_EMAIL;
+      if (!adminEmail) {
+        return res.status(403).json({ error: "Forbidden: Admin access not configured." });
+      }
+      if (req.dbUser?.email !== adminEmail) {
+        return res.status(403).json({ error: "Forbidden: Insufficient permissions." });
+      }
+
       const data = await getAdminData();
       res.json(data);
     } catch (error: any) {
