@@ -69,7 +69,7 @@ export default function FloatingChat({ context }: { context: any }) {
               <MessageSquare className="w-5 h-5 text-emerald-500" />
               <h3 className="font-bold text-white text-sm">AI Career Counselor</h3>
             </div>
-            <button onClick={() => setIsOpen(false)} className="text-slate-400 hover:text-white transition-colors">
+            <button onClick={() => setIsOpen(false)} className="text-slate-400 hover:text-white transition-colors" aria-label="Close chat">
               <X className="w-5 h-5" />
             </button>
           </div>
@@ -117,6 +117,7 @@ export default function FloatingChat({ context }: { context: any }) {
                 type="submit"
                 disabled={!input.trim() || isLoading}
                 className="bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 disabled:hover:bg-emerald-600 text-white rounded-lg p-2 transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 focus:ring-offset-slate-900"
+                aria-label="Send message"
               >
                 <Send className="w-4 h-4" />
               </button>
