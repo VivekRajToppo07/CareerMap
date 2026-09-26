@@ -20,7 +20,6 @@ interface CareerState {
 }
 
 export const app = express();
-
 async function startServer() {
   const PORT = 3000;
 
