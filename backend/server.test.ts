@@ -39,10 +39,19 @@ vi.mock("@langchain/core/prompts", async (importOriginal) => {
     };
 });
 
+vi.mock('vite', () => ({
+  createServer: vi.fn().mockResolvedValue({
+    middlewares: (req: any, res: any, next: any) => next()
+  })
+}));
+
 describe('Chat Endpoint Error Handling', () => {
     beforeAll(async () => {
         // Set environment variable before server imports it
         process.env.GROQ_API_KEY = "dummy";
+        // Set NODE_ENV to something other than test so app.listen gets called
+        process.env.NODE_ENV = "development";
+
         // dynamic import of the server script
         await import('./server.js').catch(async () => {
             await import('./server.ts');
