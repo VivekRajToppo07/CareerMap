@@ -19,8 +19,9 @@ interface CareerState {
   recommendedPaths?: string;
 }
 
-export async function startServer() {
-  const app = express();
+export const app = express();
+
+async function startServer() {
   const PORT = 3000;
 
   app.use(cors());
@@ -393,15 +394,16 @@ Keep it professional, concise, and focused on making the user stand out for this
     });
   }
 
-  if (process.env.NODE_ENV !== 'test') {
+  if (process.env.NODE_ENV !== "test") {
     app.listen(PORT, "0.0.0.0", () => {
       console.log(`Server running on http://localhost:${PORT}`);
     });
   }
-
-  return app;
 }
 
-if (process.env.NODE_ENV !== 'test') {
+if (process.env.NODE_ENV !== "test") {
+  startServer();
+} else {
+  // Just initialize the routes if test environment
   startServer();
 }

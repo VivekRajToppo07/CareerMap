@@ -1,18 +1,11 @@
-import { describe, it, expect, beforeAll, vi } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import request from 'supertest';
-import express from 'express';
 
 process.env.NODE_ENV = 'test';
 
-import { startServer } from '../server.ts';
+import { app } from '../server.ts';
 
 describe('Search Jobs Endpoint', () => {
-  let app: express.Express;
-
-  beforeAll(async () => {
-    app = await startServer();
-  });
-
   it('should return a 500 error if fetching jobs fails', async () => {
     process.env.SERPER_API_KEY = 'test_serper_key';
 
