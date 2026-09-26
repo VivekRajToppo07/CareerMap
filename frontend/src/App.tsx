@@ -44,7 +44,7 @@ function ResumeModal({ isOpen, onClose, jobRole, profile, token }: { isOpen: boo
       <div className="bg-white w-full max-w-4xl max-h-[90vh] rounded-xl shadow-2xl flex flex-col overflow-hidden relative text-black">
         <div className="flex items-center justify-between p-4 border-b border-slate-200">
           <h2 className="text-xl font-bold">Resume: {jobRole}</h2>
-          <button onClick={onClose} className="p-2 hover:bg-slate-100 rounded-lg transition-colors">
+          <button onClick={onClose} className="p-2 hover:bg-slate-100 rounded-lg transition-colors" aria-label="Close modal">
             <X className="w-5 h-5 text-slate-500" />
           </button>
         </div>
