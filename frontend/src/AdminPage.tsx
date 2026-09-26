@@ -12,7 +12,13 @@ export default function AdminPage() {
     users: any[],
     assessments: any[],
     savedPaths: any[],
-    pathProgress: any[]
+    pathProgress: any[],
+    totals: {
+      users: number,
+      assessments: number,
+      savedPaths: number,
+      pathProgress: number
+    }
   } | null>(null);
 
   useEffect(() => {
@@ -45,28 +51,28 @@ export default function AdminPage() {
           <div className="bg-[#0c0c0e] rounded-xl p-6 border border-slate-800 flex items-center justify-between">
             <div>
               <p className="text-sm text-slate-400 mb-1">Total Users</p>
-              <h2 className="text-3xl font-bold text-white">{data.users.length}</h2>
+              <h2 className="text-3xl font-bold text-white">{data.totals.users}</h2>
             </div>
             <Users className="w-8 h-8 text-indigo-500 opacity-50" />
           </div>
           <div className="bg-[#0c0c0e] rounded-xl p-6 border border-slate-800 flex items-center justify-between">
             <div>
               <p className="text-sm text-slate-400 mb-1">Assessments Taken</p>
-              <h2 className="text-3xl font-bold text-white">{data.assessments.length}</h2>
+              <h2 className="text-3xl font-bold text-white">{data.totals.assessments}</h2>
             </div>
             <FileText className="w-8 h-8 text-emerald-500 opacity-50" />
           </div>
           <div className="bg-[#0c0c0e] rounded-xl p-6 border border-slate-800 flex items-center justify-between">
             <div>
               <p className="text-sm text-slate-400 mb-1">Generated Paths</p>
-              <h2 className="text-3xl font-bold text-white">{data.savedPaths.length}</h2>
+              <h2 className="text-3xl font-bold text-white">{data.totals.savedPaths}</h2>
             </div>
             <Map className="w-8 h-8 text-blue-500 opacity-50" />
           </div>
           <div className="bg-[#0c0c0e] rounded-xl p-6 border border-slate-800 flex items-center justify-between">
             <div>
               <p className="text-sm text-slate-400 mb-1">Roadmaps Started</p>
-              <h2 className="text-3xl font-bold text-white">{data.pathProgress.length}</h2>
+              <h2 className="text-3xl font-bold text-white">{data.totals.pathProgress}</h2>
             </div>
             <Briefcase className="w-8 h-8 text-orange-500 opacity-50" />
           </div>

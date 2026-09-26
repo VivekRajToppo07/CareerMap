@@ -21,7 +21,6 @@ interface CareerState {
 
 export const app = express();
 async function startServer() {
-  // const app = express();
   const PORT = 3000;
 
   app.use(cors());
@@ -401,4 +400,9 @@ Keep it professional, concise, and focused on making the user stand out for this
   }
 }
 
-startServer();
+if (process.env.NODE_ENV !== "test") {
+  startServer();
+} else {
+  // Just initialize the routes if test environment
+  startServer();
+}
